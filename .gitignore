@@ -15,3 +15,6 @@ gradle-app.setting
 
 #ignore idea config
 .idea
+
+#ignore local build output
+.out
