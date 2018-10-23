@@ -1,0 +1,46 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+  "LaunchConfiguration": {
+    "Type": "AWS::AutoScaling::LaunchConfiguration",
+    "Properties": {
+      "ImageId": "ami-0ac019f4fcb7cb7e6",
+      "IamInstanceProfile": "arn:aws:iam::313021996969:instance-profile/EC2_PowerRole",
+      "InstanceType": "m5.xlarge",
+      "KeyName": "EC2_PowerKeys",
+      "SecurityGroups": [
+        "sg-25f0125b"
+      ],
+      "UserData": {
+        "Fn::Base64": {
+          "Fn::Join": ["", ["#!/bin/bash -xe\n",
+            "sudo apt-get --assume-yes update\n",
+            "sudo apt-get --assume-yes install default-jre\n",
+            "sudo apt-get --assume-yes install awscli\n",
+            "s3://amsbinaries2018/test_springboot_build_artifacts/build/libs/spring-trade-service-0.1.0.jar /opt/spring-trade-service/ --region=us-east-1\n",
+            "cd //opt/spring-trade-service\n",
+            "nohup java -jar spring-trade-service-0.1.0.jar &\n"
+          ]]
+        }
+      }
+    }
+  },
+  "AutoScalingGroup": {
+    "Type": "AWS::AutoScaling::AutoScalingGroup",
+    "Properties": {
+      "LaunchConfigurationName": {
+        "Ref": "LaunchConfiguration"
+      },
+      "AvailabilityZones": "us-east-1a",
+      "MetricsCollection": [
+        {
+          "Granularity" : "1Minute"
+        }
+      ],
+      "MinSize": "1",
+      "MaxSize": "1",
+      "DesiredCapacity": "1",
+      }
+    }
+  }
+}
