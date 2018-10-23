@@ -17,7 +17,7 @@
             "sudo apt-get --assume-yes update\n",
             "sudo apt-get --assume-yes install default-jre\n",
             "sudo apt-get --assume-yes install awscli\n",
-            "s3://amsbinaries2018/test_springboot_build_artifacts/build/libs/spring-trade-service-0.1.0.jar /opt/spring-trade-service/ --region=us-east-1\n",
+            "aws s3 cp s3://amsbinaries2018/test_springboot_build_artifacts/build/libs/spring-trade-service-0.1.0.jar /opt/spring-trade-service/ --region=us-east-1\n",
             "cd //opt/spring-trade-service\n",
             "nohup java -jar spring-trade-service-0.1.0.jar &\n"
           ]]
