@@ -31,7 +31,7 @@
       "LaunchConfigurationName": {
         "Ref": "LaunchConfiguration"
       },
-      "AvailabilityZones": "us-east-1a",
+      "AvailabilityZones": ["us-east-1a"],
       "MetricsCollection": [
         {
           "Granularity" : "1Minute"
