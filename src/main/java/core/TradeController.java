@@ -22,6 +22,22 @@ public class TradeController {
         return tradeService.process(newTrade).getResult();
     }
 
+// Alternative Order instruction handler using preferred param handler style & POST mapping
+// http://localhost:8080/trade2/transid/100/symbol/AMZN/quantity/500/price/1600
+    @RequestMapping(value = "/trade2/transid/{transid}/symbol/{symbol}/quantity/{quantity}/price/{price}", method = POST)
+    @ResponseBody
+    public String trade2(
+      @RequestParam(value="transid", defaultValue = "0") int transid,
+      @RequestParam(value="symbol") String symbol,
+      @RequestParam(value="quantity") double quantity,
+      @RequestParam(value="price") double price) {
+
+        Trade newTrade = new Trade(transid,symbol,quantity,price);
+        TradeService tradeService = new TradeService();
+
+        return tradeService.process(newTrade).getResult();
+}
+
 // Used for testing simple HTTP Request Acceptance
 // http://localhost:8080/testspring?transid=100
     @RequestMapping("/testspring")
