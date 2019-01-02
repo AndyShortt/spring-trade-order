@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TradeController {
@@ -29,7 +29,7 @@ public class TradeController {
 
 // Alternative Order instruction handler using preferred param handler style & POST mapping
 // http://localhost:8080/trade2/transid/100/symbol/AMZN/quantity/500/price/1600
-    @RequestMapping(value = "/trade2/transid/{transid}/symbol/{symbol}/quantity/{quantity}/price/{price}", method = POST)
+    @RequestMapping(value = "/trade2/transid/{transid}/symbol/{symbol}/quantity/{quantity}/price/{price}", method = RequestMethod.POST)
     @ResponseBody
     public String trade2(
       @RequestParam(value="transid", defaultValue = "0") int transid,
