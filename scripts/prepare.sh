@@ -1,6 +1,6 @@
 #!/bin/bash
 # redirect stdout/stderr to a file
-exec &> /tmp/preparelog.txt
+exec &> /var/log/preparelog.txt
 
 sudo apt-get -y update
 sudo apt-get -y install default-jre

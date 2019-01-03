@@ -1,8 +1,10 @@
 version: 0.1
 os: linux
 files:
-  - source: /
-    destination: /var/www/html/WordPress
+  - source: spring-trade-service-0.1.0.zip
+    destination: /tmp
+  - source: scripts
+    destination: /scripts
 hooks:
   BeforeInstall:
     - location: scripts/prepare.sh
@@ -16,7 +18,7 @@ hooks:
     - location: scripts/run.sh
       timeout: 300
       runas: root
-#  ApplicationStop:
-#    - location: scripts/stop_server.sh
-#      timeout: 300
-#      runas: root
+  ApplicationStop:
+    - location: scripts/stopjava.sh
+      timeout: 300
+      runas: root
