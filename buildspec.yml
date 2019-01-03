@@ -1,15 +1,11 @@
-version: 0.1
+version: 0.2
 
 phases:
-  install:
-   commands:
-     - echo Entering install phase...
-     - echo Nothing to do now
   build:
     commands:
-     - echo Build started on `date`
-     - gradle build
+       - gradle build
 artifacts:
-  type: zip
   files:
-    - 'build/libs/*.jar'
+    - build/libs/spring-trade-service-0.1.0.jar
+    - scripts/*
+    - appspec.yml
