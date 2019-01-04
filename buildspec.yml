@@ -7,10 +7,5 @@ phases:
 artifacts:
   files:
     - build/libs/spring-trade-service-0.1.0.jar
-  secondary-artifacts:
-    artifact2:
-      files:
-        - scripts/*
-    artifact3:
-      files:
-        - appspec.yml
+    - scripts/*
+    - appspec.yml

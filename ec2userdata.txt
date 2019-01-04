@@ -1,0 +1,18 @@
+#!/bin/bash -xe
+sudo apt-get -y update
+sudo apt-get -y install ruby
+sudo apt-get -y install wget
+cd /home/ubuntu
+wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+sudo service codedeploy-agent start
+
+
+#OLD
+#sudo apt-get --assume-yes update
+#sudo apt-get --assume-yes install default-jre
+#sudo apt-get --assume-yes install awscli
+#aws s3 cp s3://amsbinaries2018/test_springboot_build_artifacts/build/libs/spring-trade-service-0.1.0.jar /opt/spring-trade-service/ --region=us-east-1
+#cd //opt/spring-trade-service
+#nohup java -jar spring-trade-service-0.1.0.jar &
