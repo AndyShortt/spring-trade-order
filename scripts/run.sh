@@ -1,6 +1,6 @@
 #!/bin/bash
 # redirect stdout/stderr to a file
-exec &> /var/log/runlog.txt
+sudo exec &> run.out
 
 cd /usr/bin
 nohup java -jar spring-trade-service-0.1.0.jar &
