@@ -1,19 +1,17 @@
 version: 0.0
 os: linux
 files:
-  - source: spring-trade-service-0.1.0.zip
-    destination: /tmp
-  - source: scripts
-    destination: /scripts
+  - source: spring-trade-service-0.1.0.jar
+    destination: /usr/bin
 hooks:
   BeforeInstall:
     - location: scripts/prepare.sh
       timeout: 300
       runas: root
-  AfterInstall:
-    - location: scripts/unpack.sh
-      timeout: 300
-      runas: root
+#  AfterInstall:
+#    - location: scripts/unpack.sh
+#      timeout: 300
+#      runas: root
   ApplicationStart:
     - location: scripts/run.sh
       timeout: 300
