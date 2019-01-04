@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: spring-trade-service-0.1.0.jar
+  - source: build/libs/spring-trade-service-0.1.0.jar
     destination: /usr/bin
 hooks:
   BeforeInstall:
