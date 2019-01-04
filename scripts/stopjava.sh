@@ -2,4 +2,4 @@
 # redirect stdout/stderr to a file
 sudo exec &> stop.out
 
-pkill -f 'java -jar'
+/etc/init.d/spring-trade-service stop
