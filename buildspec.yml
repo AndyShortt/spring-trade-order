@@ -5,10 +5,9 @@ phases:
     commands:
        - gradle build
 artifacts:
+  files:
+    - build/libs/spring-trade-service-0.1.0.jar
   secondary-artifacts:
-    artifact1:
-      files:
-        - build/libs/spring-trade-service-0.1.0.jar
     artifact2:
       files:
         - scripts/*
