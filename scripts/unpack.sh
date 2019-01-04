@@ -1,6 +1,4 @@
 #!/bin/bash
-# redirect stdout/stderr to a file
-sudo exec &> unpack.out
 
 cd /tmp
 unzip spring-trade-service-0.1.0.zip
