@@ -9,3 +9,4 @@ artifacts:
     - build/libs/spring-trade-service-0.1.0.jar
     - scripts/*
     - appspec.yml
+    - spring-trade-service.service

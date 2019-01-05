@@ -3,6 +3,8 @@ os: linux
 files:
   - source: build/libs/spring-trade-service-0.1.0.jar
     destination: /usr/bin
+  - source: spring-trade-service.service
+    destination: /etc/systemd/system
 hooks:
   BeforeInstall:
     - location: scripts/prepare.sh
