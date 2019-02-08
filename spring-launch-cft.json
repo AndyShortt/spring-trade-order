@@ -1,0 +1,113 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+
+    "InstanceCount": {
+      "Description": "Number of EC2 instances",
+      "Type": "Number",
+      "Default": 2,
+      "MinValue": 2,
+      "MaxValue": 5,
+      "ConstraintDescription": "Must be a number between 2 and 5"
+    }
+  },
+  "Resources" : {
+
+    "TradeServiceConfiguration": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "ImageId" : "ami-0ac019f4fcb7cb7e6",
+        "InstanceType"   : "m5.xlarge",
+        "SecurityGroups" : [ {"Ref" : "TradeServiceSecurityGroup"} ],
+        "KeyName"        : "EC2_PowerKeys",
+        "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
+             "#!/bin/bash -xe\n",
+             "sudo apt-get -y update\n",
+             "sudo apt-get -y install ruby\n",
+             "sudo apt-get -y install wget\n",
+             "cd /home/ubuntu\n",
+             "wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install\n",
+             "chmod +x ./install\n",
+             "sudo ./install auto\n",
+             "sudo service codedeploy-agent start\n"
+        ]]}}
+      }
+    },
+
+    "TradeServiceAutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "LaunchConfigurationName": {
+          "Ref": "TradeServiceConfiguration"
+        },
+        "AvailabilityZones": {
+          "Fn::GetAZs": ""
+        },
+        "MetricsCollection": [
+          {
+            "Granularity" : "1Minute"
+          }
+        ],
+        "MinSize": {
+          "Ref": "InstanceCount"
+        },
+        "MaxSize": {
+          "Ref": "InstanceCount"
+        },
+        "DesiredCapacity": {
+          "Ref": "InstanceCount"
+        },
+      }
+    },
+
+    "TradeServiceSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable HTTP access via port 80",
+        "SecurityGroupIngress" : [
+          {"IpProtocol" : "tcp", "FromPort" : "80", "ToPort" : "80", "CidrIp" : "0.0.0.0/0"},
+          {"IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : "0.0.0.0/0"}
+        ]
+      }
+    },
+    "IAMInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [{"Ref": "EC2ReadOnlyRole"}]
+      }
+    },
+    "EC2ReadOnlyPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "Roles": [{"Ref": "EC2ReadOnlyRole"}],
+        "PolicyName": "EC2ReadOnlyPolicy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": {
+            "Effect": "Allow",
+            "Action": ["s3:*"],
+            "Resource": "*"
+          }
+        }
+      }
+    },
+    "EC2ReadOnlyRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "Path": "/",
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["sts:AssumeRole"],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": ["ec2.amazonaws.com"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
