@@ -1,18 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Parameters": {
-
-    "InstanceCount": {
-      "Description": "Number of EC2 instances",
-      "Type": "Number",
-      "Default": 2,
-      "MinValue": 2,
-      "MaxValue": 5,
-      "ConstraintDescription": "Must be a number between 2 and 5"
-    }
-  },
   "Resources" : {
-
     "TradeServiceConfiguration": {
       "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
@@ -33,7 +21,6 @@
         ]]}}
       }
     },
-
     "TradeServiceAutoScalingGroup": {
       "Type": "AWS::AutoScaling::AutoScalingGroup",
       "Properties": {
@@ -49,13 +36,13 @@
           }
         ],
         "MinSize": {
-          "Ref": "InstanceCount"
+          "Ref": "1"
         },
         "MaxSize": {
-          "Ref": "InstanceCount"
+          "Ref": "3"
         },
         "DesiredCapacity": {
-          "Ref": "InstanceCount"
+          "Ref": "2"
         },
       }
     },
