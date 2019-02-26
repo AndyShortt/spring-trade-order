@@ -35,16 +35,9 @@
             "Granularity" : "1Minute"
           }
         ],
-        "MinSize": {
-          "Ref": "1"
-        },
-        "MaxSize": {
-          "Ref": "3"
-        },
-        "DesiredCapacity": {
-          "Ref": "2"
-        },
-      }
+        "MinSize": 1,
+        "MaxSize": 3,
+        "DesiredCapacity": 2,
     },
 
     "TradeServiceSecurityGroup" : {
