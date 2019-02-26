@@ -38,6 +38,7 @@
         "MinSize": 1,
         "MaxSize": 3,
         "DesiredCapacity": 2,
+      }
     },
 
     "TradeServiceSecurityGroup" : {
