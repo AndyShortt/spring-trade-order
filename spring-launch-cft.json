@@ -35,9 +35,9 @@
             "Granularity" : "1Minute"
           }
         ],
-        "MinSize": 1,
+        "MinSize": 0,
         "MaxSize": 3,
-        "DesiredCapacity": 2,
+        "DesiredCapacity": 0,
       }
     },
 
